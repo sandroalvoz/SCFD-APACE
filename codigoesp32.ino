@@ -14,8 +14,8 @@ const char *root_topic_publish = "alarma";//topico publicacion raiz
 //**************************************
 //*********** WIFICONFIG ***************
 //**************************************
-const char* ssid = "Flybox_C4F8"; //SSID y contraseña de la WLAN a la que se conecta el ESP32, que resulta ser la de mi casa. No me robéis ancho de banda.
-const char* password =  "60173638";
+const char* ssid = "SSID"; //SSID y contraseña de la WLAN a la que se conecta el ESP32, que resulta ser la de mi casa. No me robéis ancho de banda.
+const char* password =  "contraseña";
 //**************************************
 //*********** GLOBALES   ***************
 //**************************************
