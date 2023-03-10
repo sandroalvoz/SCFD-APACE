@@ -1,20 +1,20 @@
-//codigo original hallado desde: https://github.com/ioticos/esp32_ioticos_broker_hello_world
+//codigo original de: https://github.com/ioticos/esp32_ioticos_broker_hello_world
 #include <Arduino.h>
 #include <WiFi.h>
 #include <PubSubClient.h>
 //**************************************
 //*********** MQTT CONFIG **************
 //**************************************
-const char *mqtt_server = "192.168.1.101";
-const int mqtt_port = 3015;
-const char *mqtt_user = "esp32";
+const char *mqtt_server = "192.168.1.101"; //IP del broker MQTT
+const int mqtt_port = 3015; //puerto utilizado
+const char *mqtt_user = "esp32";//nombre de usuario y contraseña
 const char *mqtt_pass = "Marina2022";
-const char *root_topic_subscribe = "estado";
-const char *root_topic_publish = "alarma";
+const char *root_topic_subscribe = "estado";//topico suscripcion raiz
+const char *root_topic_publish = "alarma";//topico publicacion raiz
 //**************************************
 //*********** WIFICONFIG ***************
 //**************************************
-const char* ssid = "Flybox_C4F8";
+const char* ssid = "Flybox_C4F8"; //SSID y contraseña de la WLAN a la que se conecta el ESP32, que resulta ser la de mi casa. No me robéis ancho de banda.
 const char* password =  "60173638";
 //**************************************
 //*********** GLOBALES   ***************
