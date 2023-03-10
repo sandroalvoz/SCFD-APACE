@@ -1,14 +1,15 @@
 //codigo original de: https://github.com/ioticos/esp32_ioticos_broker_hello_world
+//NOTA: por seguridad, el número del puerto utilizado, y otras configuraciones del codigo no corresponde al que se utiliza en la realidad
 #include <Arduino.h>
 #include <WiFi.h>
 #include <PubSubClient.h>
 //**************************************
 //*********** MQTT CONFIG **************
 //**************************************
-const char *mqtt_server = "192.168.1.101"; //IP del broker MQTT
-const int mqtt_port = 3015; //puerto utilizado
-const char *mqtt_user = "esp32";//nombre de usuario y contraseña
-const char *mqtt_pass = "Marina2022";
+const char *mqtt_server = "172.16.40.33"; //IP del broker MQTT
+const int mqtt_port = 8603; //puerto utilizado
+const char *mqtt_user = "UsuarioMQTT";//nombre de usuario y contraseña
+const char *mqtt_pass = "ContraseñaMQTT";
 const char *root_topic_subscribe = "estado";//topico suscripcion raiz
 const char *root_topic_publish = "alarma";//topico publicacion raiz
 //**************************************
@@ -79,7 +80,7 @@ void reconnect() {
   while (!client.connected()) {
     Serial.print("Intentando conexión Mqtt...");
     // Creamos un cliente ID
-    String clientId = "InstalacionAPACE"; //"IOTICOS_H_W_"
+    String clientId = "InstalacionAPACE";
     // Se crea un clientId aleatorio para evitar fallos al colisionar con otros dispositivos
     clientId += String(random(0xffff), HEX);
     // Se intenta conectar al broker
