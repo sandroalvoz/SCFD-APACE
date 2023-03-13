@@ -1,3 +1,4 @@
+//CODIGO DE LA FUNCION DE LLAMADA DE SOCORRO/AUXILIO
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -19,7 +20,7 @@ public class LlamadaAuxilio : MonoBehaviour{
     public float Latitud, Longitud;
     // Start is called before the first frame update
     void Start(){
-        Debug.Log("Hola, documentaciÛn. El cÛdigo se ha iniciado.");
+        Debug.Log("Hola, documentaci√≥n. El c√≥digo se ha iniciado.");
         Input.location.Start();
 }
     // Update is called once per frame
@@ -30,18 +31,18 @@ public class LlamadaAuxilio : MonoBehaviour{
     private IEnumerator CorrutinaLectura(string URL){
         UnityWebRequest request =UnityWebRequest.Get(URL);
         yield return request.SendWebRequest();
-        //se envÌa una peticiÛn GET a travÈs de UnityWebRequest
+        //se env√≠a una petici√≥n GET a trav√©s de UnityWebRequest
         if ((request.result != UnityWebRequest.Result.ConnectionError) && (request.result !=UnityWebRequest.Result.ProtocolError)) {
-            //si la peticiÛn no falla, se contin˙a en la estructura if()
+            //si la petici√≥n no falla, se contin√∫a en la estructura if()
             //las siguientes lineas realizan una comparacion para determinar
             // si la alarma esta apagada o encendida.
             if (request.downloadHandler.text== "AlarmaApagada")
 {
-                Debug.Log("La alarma est· apagada");
+                Debug.Log("La alarma est√° apagada");
             }
             else
             {
-                Debug.Log("La alarma est· encendida");
+                Debug.Log("La alarma est√° encendida");
             }
         } 
     }
@@ -50,7 +51,7 @@ public class LlamadaAuxilio : MonoBehaviour{
         //se crea un formulario WWW
         form.AddField("archivo", Nombrearchivo);
         form.AddField("texto", contenido);
-        //a este formulario, se le aÒade la informacion Nombrearchivo y contenido
+        //a este formulario, se le a√±ade la informacion Nombrearchivo y contenido
         //estas variables se especificaran al llamar a la funcion desde el codigo
         using (UnityWebRequest www= UnityWebRequest.Post("http://192.168.1.101:4072/SistemaLLA/comunicacion.php", form)){
             //el formulario se envia a traves de una peticion POST al archivo comunicacion.php
