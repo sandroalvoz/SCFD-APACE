@@ -1,3 +1,4 @@
+//CODIGO DEL MENU PRINCIPAL DINAMICO
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,13 +10,13 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 public class Codigo : MonoBehaviour
 {
-    //plantilla Botones Menu. Con esto, se podr·n crear botones para acceder a cada una de las aplicaciones
+    //plantilla Botones Menu. Con esto, se podr√°n crear botones para acceder a cada una de las aplicaciones
     public UnityEngine.UI.Button Boton;
-    public GameObject LayoutBotones; //se define Boton como GameObject. Desde Unity, se le importa el prefab de un botÛn
+    public GameObject LayoutBotones; //se define Boton como GameObject. Desde Unity, se le importa el prefab de un bot√≥n
     public string[] TextoBotones; //se define la variable TextoBotones como un vector
     void Start()
     {
-        int numerofunciones = 4; //Definicion de numerofunciones, variable en la que se almacenar· el numero de funciones a implementar en el menu de la aplicacion
+        int numerofunciones = 4; //Definicion de numerofunciones, variable en la que se almacenar√° el numero de funciones a implementar en el menu de la aplicacion
         //definicion del array TextoBotones, donde se almacenaran los nombres de cada funcion a la que accederemos desde el menu
         TextoBotones = new string[numerofunciones];
         TextoBotones[0] = "Hola";
@@ -24,15 +25,15 @@ public class Codigo : MonoBehaviour
         TextoBotones[3] = "para el boton";
         //RectTransform RT=LayoutBotones.GetComponent(typeof (RectTransform)) as RectTransform;
         //------------------------------------------------------------------------------------
-        //aumento del tamaÒo del scroll vertical, EO(BotonesScrollVertical), por cada objeto
+        //aumento del tama√±o del scroll vertical, EO(BotonesScrollVertical), por cada objeto
         RectTransform RT = LayoutBotones.GetComponent<RectTransform>();
         RT.sizeDelta = new Vector2(1000, 400 + (200 * numerofunciones));
         for (int i = 0; i <= TextoBotones.Length - 1; i++)
         {
             UnityEngine.UI.Button Boton1 = Instantiate(Boton, LayoutBotones.transform); //se genera un nuevo Boton, contenido como hijo del objeto LayoutBotones.
-            //Boton y LayoutBotones son prefabs, plantillas de objetos ya existentes en nuestro editor gr·fico de Unity
+            //Boton y LayoutBotones son prefabs, plantillas de objetos ya existentes en nuestro editor gr√°fico de Unity
             Boton1.GetComponentInChildren<TextMeshProUGUI>().text = TextoBotones[i];
-            //se modifica la componente de texto del botÛn que hemos creado anteriormente, almacenando en ella uno de los valores
+            //se modifica la componente de texto del bot√≥n que hemos creado anteriormente, almacenando en ella uno de los valores
             //contenidos en el array TextoBotones
             //------------------------------------------------------------------------------------
             //Boton1.GetComponent<Button>().onClick.AddListener(delegate { });
