@@ -1,0 +1,418 @@
+[
+    {
+        "id": "b3014b1f109fc143",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "63c8abcbebbc3779",
+        "type": "inject",
+        "z": "b3014b1f109fc143",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "0.3",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 340,
+        "wires": [
+            [
+                "edba34a6609b46f1",
+                "79bea96e74e43a7c"
+            ]
+        ]
+    },
+    {
+        "id": "edba34a6609b46f1",
+        "type": "http request",
+        "z": "b3014b1f109fc143",
+        "name": "Lectura Latitud",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1/SistemaLLA/Latitudtxt",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 380,
+        "y": 320,
+        "wires": [
+            [
+                "dd618fe3d1eb0425"
+            ]
+        ]
+    },
+    {
+        "id": "79bea96e74e43a7c",
+        "type": "http request",
+        "z": "b3014b1f109fc143",
+        "name": "Lectura Longitud",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1/SistemaLLA/Longitudtxt",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 390,
+        "y": 360,
+        "wires": [
+            [
+                "b5d235573f5fdabd"
+            ]
+        ]
+    },
+    {
+        "id": "dd618fe3d1eb0425",
+        "type": "function",
+        "z": "b3014b1f109fc143",
+        "name": "Variable Latitud",
+        "func": "flow.set(\"Latitud\",msg.payload);",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 320,
+        "wires": [
+            [
+                "d01d2727a0a6f833"
+            ]
+        ]
+    },
+    {
+        "id": "b5d235573f5fdabd",
+        "type": "function",
+        "z": "b3014b1f109fc143",
+        "name": "Variable Longitud",
+        "func": "flow.set(\"Longitud\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 360,
+        "wires": [
+            [
+                "d01d2727a0a6f833"
+            ]
+        ]
+    },
+    {
+        "id": "d01d2727a0a6f833",
+        "type": "function",
+        "z": "b3014b1f109fc143",
+        "name": "Clasificador",
+        "func": "//msg.payload ='La latitud es: '+ flow.get(\"Latitud\") +'. La longitud es: '+ flow.get(\"Longitud\");\nvar lat = flow.get(\"Latitud\");\nvar long = flow.get(\"Longitud\");\nvar latitud = Number(flow.get(\"Latitud\"));\nvar longitud = Number(flow.get(\"Longitud\"));\nvar m1 =0;\nif ((lat == \"CORRECTO\") && (long== \"CORRECTO\")){\n    msg.payload=\"RESET\";\n    flow.set(\"estado\", \"apagada\");\n    m1=1;\n} else if (latitud==1 && longitud==1){\n    msg.payload = \"Zona1\";\n} else if (latitud == 2 && longitud == 2) {\n    msg.payload = \"Zona2\";\n} else if (latitud == 3 && longitud == 3) {\n    msg.payload = \"Zona3\"; \n} else if (latitud == 4 && longitud == 4) {\n    msg.payload = \"Zona4\";\n} else if (latitud == 5 && longitud == 5) {\n    msg.payload = \"Zona5\";\n} else if (latitud == 6 && longitud == 6) {\n    msg.payload = \"Zona6\";\n} else if (latitud == 7 && longitud == 7) {\n    msg.payload = \"Zona7\";\n} else if (latitud == 8 && longitud == 8) {\n    msg.payload = \"Zona8\";\n} else {\n    msg.payload = \"Zona9\";}\nif(m1!=1){\n    flow.set(\"estado\",\"encendida\");\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 830,
+        "y": 320,
+        "wires": [
+            [
+                "59b165e068a35553",
+                "b71a6d0a4868f232"
+            ]
+        ]
+    },
+    {
+        "id": "956e0bc8dc8382be",
+        "type": "fs-ops-copy",
+        "z": "b3014b1f109fc143",
+        "name": "Reiniciar Latitud",
+        "sourcePath": "C:\\laragon\\www\\SistemaLLA",
+        "sourcePathType": "str",
+        "sourceFilename": "Correcto",
+        "sourceFilenameType": "str",
+        "destPath": "C:\\laragon\\www\\SistemaLLA",
+        "destPathType": "str",
+        "destFilename": "Latitudtxt",
+        "destFilenameType": "str",
+        "link": false,
+        "overwrite": true,
+        "x": 380,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f5b89416eb3d43f6",
+        "type": "fs-ops-copy",
+        "z": "b3014b1f109fc143",
+        "name": "Reiniciar Longitud",
+        "sourcePath": "C:\\laragon\\www\\SistemaLLA",
+        "sourcePathType": "str",
+        "sourceFilename": "Correcto",
+        "sourceFilenameType": "str",
+        "destPath": "C:\\laragon\\www\\SistemaLLA",
+        "destPathType": "str",
+        "destFilename": "Longitudtxt",
+        "destFilenameType": "str",
+        "link": false,
+        "overwrite": true,
+        "x": 390,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "50241d5c3c37aaad",
+        "type": "inject",
+        "z": "b3014b1f109fc143",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 400,
+        "wires": [
+            [
+                "956e0bc8dc8382be",
+                "f5b89416eb3d43f6"
+            ]
+        ]
+    },
+    {
+        "id": "09ea1f2c81d22d57",
+        "type": "fs-ops-copy",
+        "z": "b3014b1f109fc143",
+        "name": "EstadoAlarma",
+        "sourcePath": "C:\\laragon\\www\\SistemaLLA\\Estados",
+        "sourcePathType": "str",
+        "sourceFilename": "payload",
+        "sourceFilenameType": "msg",
+        "destPath": "C:\\laragon\\www\\SistemaLLA",
+        "destPathType": "str",
+        "destFilename": "EstadoAlarma",
+        "destFilenameType": "str",
+        "link": false,
+        "overwrite": true,
+        "x": 1160,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "59b165e068a35553",
+        "type": "debug",
+        "z": "b3014b1f109fc143",
+        "name": "debug 5",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "5c85aabdb21281b8",
+        "type": "mqtt in",
+        "z": "b3014b1f109fc143",
+        "name": "",
+        "topic": "alarma",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "ef708fdf76f28f23",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 70,
+        "y": 440,
+        "wires": [
+            [
+                "5a8b0768d768ed80",
+                "cd0d5d71c533ab74"
+            ]
+        ]
+    },
+    {
+        "id": "5a8b0768d768ed80",
+        "type": "debug",
+        "z": "b3014b1f109fc143",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 140,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "c2da4cc008b8a52f",
+        "type": "mqtt out",
+        "z": "b3014b1f109fc143",
+        "name": "",
+        "topic": "estado",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "ef708fdf76f28f23",
+        "x": 1130,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "cd0d5d71c533ab74",
+        "type": "switch",
+        "z": "b3014b1f109fc143",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "AlarmaApagada",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "TanqueAgua",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 210,
+        "y": 460,
+        "wires": [
+            [
+                "956e0bc8dc8382be",
+                "f5b89416eb3d43f6",
+                "b71a6d0a4868f232"
+            ],
+            [
+                "b71a6d0a4868f232",
+                "956e0bc8dc8382be",
+                "f5b89416eb3d43f6"
+            ]
+        ]
+    },
+    {
+        "id": "b71a6d0a4868f232",
+        "type": "switch",
+        "z": "b3014b1f109fc143",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "RESET",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1010,
+        "y": 460,
+        "wires": [
+            [
+                "09ea1f2c81d22d57",
+                "c2da4cc008b8a52f",
+                "cd8cb0c2b363d5c8"
+            ]
+        ]
+    },
+    {
+        "id": "cd8cb0c2b363d5c8",
+        "type": "debug",
+        "z": "b3014b1f109fc143",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1140,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "ef708fdf76f28f23",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "127.0.0.1",
+        "port": "3015",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
