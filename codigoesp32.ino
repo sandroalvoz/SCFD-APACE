@@ -1,3 +1,4 @@
+//CODIGO DEL ESP32
 //codigo original de: https://github.com/ioticos/esp32_ioticos_broker_hello_world
 //NOTA: por seguridad, el número del puerto utilizado, y otras configuraciones del codigo no corresponde al que se utiliza en la realidad
 #include <Arduino.h>
